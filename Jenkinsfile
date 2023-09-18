@@ -4,25 +4,39 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Checkout your code from the GitHub repository
+                // Checkout code from the GitHub repo
                 checkout scm
             }
         }
 
         stage('Build and Test') {
             steps {
-                // Build and run tests for your application
-                sh 'npm install'  // Replace with your build commands
-                sh 'npm test'     // Replace with your test commands
+                // Build and run tests 
+                sh 'npm install'  
+                sh 'npm test'     
             }
         }
-
         stage('Deploy to Render') {
             steps {
-                // Use Render's CLI (or API) to deploy your application
-                sh 'render deploy -- --build-env NODE_ENV=production'
-            }
+                script {
+                    def renderCommand = "render deploy"
+                    def renderOptions = [
+                        "--build-env NODE_ENV=production",
+                        "--branch master",  // Git branch to deploy from
+                        "--gallery",  
+                        "--auto-deploy",  // Automatically deploy when changes are pushed
+                        "--wait",  // Wait for the deployment to complete
+                    ]
+        
+                    def fullRenderCommand = "${renderCommand} ${renderOptions.join(' ')}"
+        
+                    // Execute the Render CLI command
+                    sh fullRenderCommand
         }
+    }
+}
+
+        
     }
 
     post {
