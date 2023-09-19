@@ -22,13 +22,33 @@ post {
                sh 'npm install express'
            }
        }
+      
        stage('Tests') {
           steps {
             sh 'npm test'
           }
        }
+       stage('Deploy to Render') {
+            steps {
+                script {
+                    def renderCommand = "render deploy"
+                    def renderOptions = [
+                        "--build-env NODE_ENV=production",
+                        "--branch master",  // Git branch to deploy from
+                        "--gallery",  
+                        "--auto-deploy",  // Auto deploy when changes are pushed
+                        "--wait",  // Wait for the deployment to complete
+                    ]
+        
+                    def fullRenderCommand = "${renderCommand} ${renderOptions.join(' ')}"
+        
+                    // Execute the Render CLI command
+                    sh fullRenderCommand
+        }
+    }
+}
 
-        stage('slack notification') {
+        stage('Notify on slack') {
           steps {
             slackSend color: 'good', message: "id ${env.BUILD_NUMBER} https://hooks.slack.com/services/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", sendAsText: true
           }
