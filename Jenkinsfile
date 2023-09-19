@@ -1,0 +1,39 @@
+pipeline {
+   agent any
+   tools {
+       nodejs 'N20.7.0'
+   }
+post {
+        failure {
+            mail to: 'wanguikibiru22@gmail.com',
+                 subject: "This pipeline has failed: ${currentBuild.fullDisplayName}",
+                 body: "Something is wrong with ${env.BUILD_NUMBER}"
+        }
+    }
+   stages {
+       stage('Clone Repo'){
+           steps{
+               git 'https://github.com/WanguiR/gallery.git'
+           }
+       }
+       stage('install dependancies'){
+           steps{
+               sh 'npm install'
+               sh 'npm install express'
+           }
+       }
+       stage('Tests') {
+          steps {
+            sh 'npm test'
+          }
+       }
+
+        stage('slack notification') {
+          steps {
+            slackSend color: 'good', message: "id ${env.BUILD_NUMBER} https://hooks.slack.com/services/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", sendAsText: true
+          }
+       }
+
+   }
+}
+
