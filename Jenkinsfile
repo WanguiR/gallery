@@ -50,7 +50,7 @@ post {
 
         stage('Notify on slack') {
           steps {
-            channel: '#jenkins-pipelines',  // my Slack channel
+            channel: 'jenkins-pipelines',  // my Slack channel
                 color: '#00FF00',    // Green color for success
                 message: "Deployment successful on ${currentBuild.fullDisplayName}"
          
