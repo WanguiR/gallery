@@ -1,7 +1,7 @@
 pipeline {
    agent any
    tools {
-       nodejs 'N20.7.0'
+       nodejs '20.7.0'
    }
 post {
         failure {
