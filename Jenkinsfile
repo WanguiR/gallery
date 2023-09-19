@@ -20,6 +20,7 @@ post {
            steps{
                sh 'npm install'
                sh 'npm install express'
+               sh 'npm install mongodb'
            }
        }
       
