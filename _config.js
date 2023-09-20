@@ -2,7 +2,7 @@ var config = {}
 
 // Update to have your correct username and password
 config.mongoURI = {
-    production: 'mongodb+srv://rosewangui:6H48jbhlyfZauPlE@cluster0.p7y1pkl.mongodb.net/?retryWrites=true&w=majority',
+    production: 'mongodb+srv://adminDB:7npscgwzXlBjsnc@gallery.dc3g6oq.mongodb.net/?retryWrites=true&w=majority',
     //development: 'mongodb+srv://<USERNAME>:<PASSWORD>@gallery.wc344.mongodb.net/darkroom-dev?retryWrites=true&w=majority',
     //test: 'mongodb+srv://<USERNAME>:<PASSWORD>@gallery.wc344.mongodb.net/darkroom-test?retryWrites=true&w=majority',
 }
