@@ -49,12 +49,6 @@ post {
     }
 }
 
-        stage('Notify on slack') {
-          steps {
-            slackSend color: 'good', message: "id ${env.BUILD_NUMBER} https://hooks.slack.com/services/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", sendAsText: true
-         
-          }
-       }
 
    }
 }
